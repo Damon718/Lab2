@@ -63,8 +63,6 @@ button {
 @media screen and (min-width: 600px) {
   #main {
       background-color: lightblue;
-      width: 200px;
-      height: 400px;
   }
 
   input {
