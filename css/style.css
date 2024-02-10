@@ -62,10 +62,14 @@ button {
 
 @media screen and (min-width: 600px) {
   #main {
-      background-color: lightblue;
+    text-align: center;
+    margin: 4% auto 0 auto;
+    width: 40%;
   }
 
   input {
     width: 40%
   }
+
+
 }
