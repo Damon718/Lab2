@@ -841,7 +841,7 @@ function init() {
     // 0.9 is mobile default
     setOptionsForSelect(
         appNodes.scaleFactor,
-        [0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map(value => ({ value: value.toFixed(2), label: `${value * 100}%` }))
+        [0.3,0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map(value => ({ value: value.toFixed(2), label: `${value * 100}%` }))
     );
 
     // Begin simulation
