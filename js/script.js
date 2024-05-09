@@ -142,7 +142,7 @@ const store = {
             skyLighting: SKY_LIGHT_NORMAL + '',
             hideControls: IS_HEADER,
             longExposure: false,
-            scaleFactor: getDefaultScaleFactor(),
+            scaleFactor: 0.3,
         },
     },
 
