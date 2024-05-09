@@ -32,7 +32,7 @@ const GRAVITY = 0.9; //以像素/秒为单位的加速度
 let simSpeed = 1;
 
 function getDefaultScaleFactor() {
-    if (IS_MOBILE) return 0.9;
+    if (IS_MOBILE) return 0.3;
     if (IS_HEADER) return 0.75;
     return 1;
 }
@@ -76,7 +76,7 @@ const mainStage = new Stage('main-canvas');
 const stages = [trailsStage, mainStage];
 
 //随机文字烟花内容
-const randomWords = ['祝孟德润生日快乐', "祝孟德润健康快乐每一天！" ,'(๑′ᴗ‵๑)❤', '开开心心', '顺顺利利', 'Happy birthday!',"在艺术上发展的很好","被中央美术学院录取"];
+const randomWords = ['祝孟德润生日快乐', "祝孟德润健康快乐每一天！" ,'祝孟德润生日快乐','祝孟德润生日快乐', '心想事成，万事如意', '开开心心,顺顺利利', '祝孟德润生日快乐', "祝孟德润健康快乐每一天！"];
 const wordDotsMap = {};
 randomWords.forEach(word => {
     wordDotsMap[word] = MyMath.literalLattice(word, 5, 'bold', 'Gabriola,华文琥珀', '90px');
@@ -1500,16 +1500,10 @@ function createParticleArc(start, arcLength, count, randomness, particleFactory)
 //获取字体点阵信息
 function getWordDots(word) {
     if (!word) return null;
-    // var res = wordDotsMap[word];
-    // if (!res) {
-    //     wordDotsMap[word] = MyMath.literalLattice(word);
-    //     res = wordDotsMap[word];
-    // }
-
     //随机字体大小 60~130
     var fontSize = Math.floor(Math.random() * 70 + 60);
 
-    var res = MyMath.literalLattice(word, 3, 'bold', 'Gabriola,华文琥珀', fontSize + 'px');
+    var res = MyMath.literalLattice(word, 5, 'bold', 'Gabriola,华文琥珀', fontSize + 'px');
 
     return res;
 }
@@ -2029,13 +2023,14 @@ class Shell {
         } else {
             throw new Error('无效的烟花颜色。应为字符串或字符串数组，但得到:' + this.color);
         }
+        createWordBurst(randomWord(), dotStarFactory, x, y);
 
         if (!this.disableWordd && store.state.config.wordShell) {
             if (Math.random() < 0.1) {
                 if (Math.random() < 0.5) {
                     createWordBurst(randomWord(), dotStarFactory, x, y);
                 } else {
-                    createImgBurst(dotStarFactory, x, y);
+                    createWordBurst(randomWord(), dotStarFactory, x, y);
                 }
             }
         }
