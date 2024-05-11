@@ -2024,22 +2024,22 @@ class Shell {
             throw new Error('无效的烟花颜色。应为字符串或字符串数组，但得到:' + this.color);
         }
         //1号位
-        createWordBurst( randomWords[0], dotStarFactory, 700, 600);
-        createWordBurst( randomWords[1], dotStarFactory, 700, 700);
-        createWordBurst( randomWords[2], dotStarFactory, 700, 800);
-        createWordBurst( randomWords[3], dotStarFactory, 700, 900);
-        createWordBurst( randomWords[4], dotStarFactory, 700, 1000);
-        createWordBurst( randomWords[5], dotStarFactory, 700, 1100);
-        createWordBurst( randomWords[6], dotStarFactory, 700, 1200);
-        // if (!this.disableWordd && store.state.config.wordShell) {
-        //     if (Math.random() < 0.1) {
-        //         if (Math.random() < 0.5) {
-        //             createWordBurst(randomWord(), dotStarFactory, x, y);
-        //         } else {
-        //             createWordBurst(randomWord(), dotStarFactory, x, y);
-        //         }
-        //     }
-        // }
+      
+        if (!this.disableWordd && store.state.config.wordShell) {
+            // if (Math.random() < 0.1) {
+            //     if (Math.random() < 0.5) {
+                    createWordBurst( randomWords[0], dotStarFactory, 700, 600);
+                    createWordBurst( randomWords[1], dotStarFactory, 700, 700);
+                    createWordBurst( randomWords[2], dotStarFactory, 700, 800);
+                    createWordBurst( randomWords[3], dotStarFactory, 700, 900);
+                    createWordBurst( randomWords[4], dotStarFactory, 700, 1000);
+                    createWordBurst( randomWords[5], dotStarFactory, 700, 1100);
+                    createWordBurst( randomWords[6], dotStarFactory, 700, 1200);
+                // } else {
+                //     createWordBurst(randomWord(), dotStarFactory, x, y);
+                // }
+            // }
+        }
 
         if (this.pistil) {
             const innerShell = new Shell({
