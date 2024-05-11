@@ -75,8 +75,8 @@ const trailsStage = new Stage('trails-canvas');
 const mainStage = new Stage('main-canvas');
 const stages = [trailsStage, mainStage];
 
-//随机文字烟花内容
-const randomWords = ['祝孟德润生日快乐', "祝孟德润健康快乐每一天！" ,'祝孟德润生日快乐','祝孟德润生日快乐', '心想事成，万事如意', '开开心心,顺顺利利', '祝孟德润生日快乐', "祝孟德润健康快乐每一天！"];
+//随机文字烟花内容 3号位
+const randomWords = ["亲爱的妈妈","在这个特别的日子里","我想对您说","母亲节快乐！","您是我生命中最重要的人","感谢您无私的爱和无尽的支持","我爱您"];
 const wordDotsMap = {};
 randomWords.forEach(word => {
     wordDotsMap[word] = MyMath.literalLattice(word, 5, 'bold', 'Gabriola,华文琥珀', '90px');
@@ -134,15 +134,15 @@ const store = {
             size: IS_DESKTOP
                 ? '3' // Desktop default
                 : IS_HEADER
-                ? '1.2' //配置文件头默认值(不必是int)
-                : '2', //手机默认
+                    ? '1.2' //配置文件头默认值(不必是int)
+                    : '2', //手机默认
             wordShell: true, //随机点阵烟花
             autoLaunch: true, //自动发射烟花
             finale: true, //同时放更多烟花
             skyLighting: SKY_LIGHT_NORMAL + '',
             hideControls: IS_HEADER,
             longExposure: false,
-            scaleFactor: 0.3,
+            scaleFactor: getDefaultScaleFactor(),
         },
     },
 
@@ -391,7 +391,7 @@ const appNodes = {
     fullscreenLabel: '.fullscreen-label',
     longExposure: '.long-exposure',
     longExposureLabel: '.long-exposure-label',
-    
+
 
     // Help UI
     helpModal: '.help-modal',
@@ -484,7 +484,7 @@ const updateConfigNoEvent = () => updateConfig();
 appNodes.quality.addEventListener('input', updateConfigNoEvent);
 appNodes.shellType.addEventListener('input', updateConfigNoEvent);
 appNodes.shellSize.addEventListener('input', updateConfigNoEvent);
-appNodes.wordShell.addEventListener("click", ()=>setTimeout(updateConfig, 0));
+appNodes.wordShell.addEventListener("click", () => setTimeout(updateConfig, 0));
 appNodes.autoLaunch.addEventListener('click', () => setTimeout(updateConfig, 0));
 appNodes.finaleMode.addEventListener('click', () => setTimeout(updateConfig, 0));
 appNodes.skyLighting.addEventListener('input', updateConfigNoEvent);
@@ -564,7 +564,7 @@ function randomColor(options) {
     return color;
 }
 
-// 随机获取一段文字
+// 随机获取一段文字 2号位
 function randomWord() {
     if (randomWords.length === 0) return '';
     if (randomWords.length === 1) return randomWords[0];
@@ -841,7 +841,7 @@ function init() {
     // 0.9 is mobile default
     setOptionsForSelect(
         appNodes.scaleFactor,
-        [0.3,0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map(value => ({ value: value.toFixed(2), label: `${value * 100}%` }))
+        [0.3, 0.5, 0.62, 0.75, 0.9, 1.0, 1.5, 2.0].map(value => ({ value: value.toFixed(2), label: `${value * 100}%` }))
     );
 
     // Begin simulation
@@ -1501,7 +1501,7 @@ function createParticleArc(start, arcLength, count, randomness, particleFactory)
 function getWordDots(word) {
     if (!word) return null;
     //随机字体大小 60~130
-    var fontSize = Math.floor(Math.random() * 70 + 60);
+    var fontSize = 100 ;//Math.floor(Math.random() * 70 + 60);
 
     var res = MyMath.literalLattice(word, 5, 'bold', 'Gabriola,华文琥珀', fontSize + 'px');
 
@@ -2023,17 +2023,23 @@ class Shell {
         } else {
             throw new Error('无效的烟花颜色。应为字符串或字符串数组，但得到:' + this.color);
         }
-        createWordBurst(randomWord(), dotStarFactory, x, y);
-
-        if (!this.disableWordd && store.state.config.wordShell) {
-            if (Math.random() < 0.1) {
-                if (Math.random() < 0.5) {
-                    createWordBurst(randomWord(), dotStarFactory, x, y);
-                } else {
-                    createWordBurst(randomWord(), dotStarFactory, x, y);
-                }
-            }
-        }
+        //1号位
+        createWordBurst( randomWords[0], dotStarFactory, 700, 600);
+        createWordBurst( randomWords[1], dotStarFactory, 700, 700);
+        createWordBurst( randomWords[2], dotStarFactory, 700, 800);
+        createWordBurst( randomWords[3], dotStarFactory, 700, 900);
+        createWordBurst( randomWords[4], dotStarFactory, 700, 1000);
+        createWordBurst( randomWords[5], dotStarFactory, 700, 1100);
+        createWordBurst( randomWords[6], dotStarFactory, 700, 1200);
+        // if (!this.disableWordd && store.state.config.wordShell) {
+        //     if (Math.random() < 0.1) {
+        //         if (Math.random() < 0.5) {
+        //             createWordBurst(randomWord(), dotStarFactory, x, y);
+        //         } else {
+        //             createWordBurst(randomWord(), dotStarFactory, x, y);
+        //         }
+        //     }
+        // }
 
         if (this.pistil) {
             const innerShell = new Shell({
@@ -2174,31 +2180,31 @@ const Star = {
         instance.strobe = false;
 
         /*
-			visible: bool, 是否应该绘制星花.
-			heavy: bool, 是否是 "重" 星花, 关系到应用的空气阻力.
-			x: float, 星花的当前 x 坐标.
-			y: float, 星花的当前 y 坐标.
-			prevX: float, 上一帧星花的 x 坐标.
-			prevY: float, 上一帧星花的 y 坐标.
-			color: string, 星花的颜色.
-			speedX: float, 星花当前 x 方向的速度.
-			speedY: float, 星花当前 y 方向的速度.
-			life: float, 星花的剩余生命值 (ms).
-			fullLife: float, 星花的总生命值 (ms).
-			spinAngle: float, 星花的旋转角度.
-			spinSpeed: float, 星花的旋转速度.
-			spinRadius: float, 星花的旋转半径.
-			sparkFreq: float, 发射火花的频率 (ms).
-			sparkSpeed: float, 火花的速度.
-			sparkTimer: float, 火花的计时器 (ms).
-			sparkColor: string, 火花的颜色.
-			sparkLife: float, 火花的生命值 (ms).
-			sparkLifeVariation: float, 火花的生命值的可变范围.
-			strobe: bool, 是否应用闪烁效果.
-			onDeath: function, 星花死亡时调用的回调函数.
-			secondColor: string, 在生命周期中星花颜色渐变时的第二个颜色.
-			transitionTime:星花生命周期结束之前发生变化的时间
-		*/
+            visible: bool, 是否应该绘制星花.
+            heavy: bool, 是否是 "重" 星花, 关系到应用的空气阻力.
+            x: float, 星花的当前 x 坐标.
+            y: float, 星花的当前 y 坐标.
+            prevX: float, 上一帧星花的 x 坐标.
+            prevY: float, 上一帧星花的 y 坐标.
+            color: string, 星花的颜色.
+            speedX: float, 星花当前 x 方向的速度.
+            speedY: float, 星花当前 y 方向的速度.
+            life: float, 星花的剩余生命值 (ms).
+            fullLife: float, 星花的总生命值 (ms).
+            spinAngle: float, 星花的旋转角度.
+            spinSpeed: float, 星花的旋转速度.
+            spinRadius: float, 星花的旋转半径.
+            sparkFreq: float, 发射火花的频率 (ms).
+            sparkSpeed: float, 火花的速度.
+            sparkTimer: float, 火花的计时器 (ms).
+            sparkColor: string, 火花的颜色.
+            sparkLife: float, 火花的生命值 (ms).
+            sparkLifeVariation: float, 火花的生命值的可变范围.
+            strobe: bool, 是否应用闪烁效果.
+            onDeath: function, 星花死亡时调用的回调函数.
+            secondColor: string, 在生命周期中星花颜色渐变时的第二个颜色.
+            transitionTime:星花生命周期结束之前发生变化的时间
+        */
 
         this.active[color].push(instance);
         return instance;
@@ -2450,7 +2456,7 @@ const imageTemplateManager = {
                         return;
                     });
                 allFilePromises.push(promise);
-            } catch (error) {}
+            } catch (error) { }
         };
         load();
         return Promise.all(allFilePromises);
