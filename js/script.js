@@ -76,7 +76,7 @@ const mainStage = new Stage('main-canvas');
 const stages = [trailsStage, mainStage];
 
 //随机文字烟花内容
-const randomWords = ['祝孟德润生日快乐', "祝孟德润健康快乐每一天！" ,'祝孟德润生日快乐','祝孟德润生日快乐', '心想事成，万事如意', '开开心心,顺顺利利', '祝孟德润生日快乐', "祝孟德润健康快乐每一天！"];
+const randomWords = ["亲爱的妈妈","在这个特别的日子里","我想对您说","母亲节快乐！","您是我生命中最重要的人","感谢您无私的爱和无尽的支持","我爱您"];
 const wordDotsMap = {};
 randomWords.forEach(word => {
     wordDotsMap[word] = MyMath.literalLattice(word, 5, 'bold', 'Gabriola,华文琥珀', '90px');
@@ -2028,7 +2028,13 @@ class Shell {
         if (!this.disableWordd && store.state.config.wordShell) {
             if (Math.random() < 0.1) {
                 if (Math.random() < 0.5) {
-                    createWordBurst(randomWord(), dotStarFactory, x, y);
+                    createWordBurst( randomWords[0], dotStarFactory, 700, 600);
+                    createWordBurst( randomWords[1], dotStarFactory, 700, 700);
+                    createWordBurst( randomWords[2], dotStarFactory, 700, 800);
+                    createWordBurst( randomWords[3], dotStarFactory, 700, 900);
+                    createWordBurst( randomWords[4], dotStarFactory, 700, 1000);
+                    createWordBurst( randomWords[5], dotStarFactory, 700, 1100);
+                    createWordBurst( randomWords[6], dotStarFactory, 700, 1200);
                 } else {
                     createWordBurst(randomWord(), dotStarFactory, x, y);
                 }
