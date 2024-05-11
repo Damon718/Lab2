@@ -2026,8 +2026,8 @@ class Shell {
         //1号位
       
         if (!this.disableWordd && store.state.config.wordShell) {
-            // if (Math.random() < 0.1) {
-            //     if (Math.random() < 0.5) {
+            if (Math.random() < 0.1) {
+                if (Math.random() < 0.5) {
                     createWordBurst( randomWords[0], dotStarFactory, 700, 600);
                     createWordBurst( randomWords[1], dotStarFactory, 700, 700);
                     createWordBurst( randomWords[2], dotStarFactory, 700, 800);
@@ -2035,10 +2035,10 @@ class Shell {
                     createWordBurst( randomWords[4], dotStarFactory, 700, 1000);
                     createWordBurst( randomWords[5], dotStarFactory, 700, 1100);
                     createWordBurst( randomWords[6], dotStarFactory, 700, 1200);
-                // } else {
-                //     createWordBurst(randomWord(), dotStarFactory, x, y);
-                // }
-            // }
+                } else {
+                    createWordBurst(randomWord(), dotStarFactory, x, y);
+                }
+            }
         }
 
         if (this.pistil) {
